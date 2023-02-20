@@ -9,7 +9,7 @@ yellowColour="\e[0;33m\033[1m"
 purpleColour="\e[0;35m\033[1m"
 turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
-
+#S4vitar
 
 # Functions 
 
