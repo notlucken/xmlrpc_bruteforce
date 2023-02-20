@@ -23,8 +23,12 @@ The message "Incorrect username or password" inside a 200 code response should a
 
 So with the Script you can Bruteforce this, with the flags:
 
-**u** --> Username
+**u** --> Username;
+
 **w** --> Path to Wordlist
 
+Credits of the information: https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/wordpress
+
+The person who wrote the entire part of the Script: https://twitch.tv/s4vitar
 
 

